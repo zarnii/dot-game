@@ -13,6 +13,16 @@
   <property name="windowTitle">
    <string>Моя игра</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton{
+background-color: silver;
+border-radius:10;
+}
+
+QPushButton:hover{
+background-color:grey;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -35,10 +45,10 @@
    <widget class="QPushButton" name="closeButton">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>290</y>
-      <width>191</width>
-      <height>61</height>
+      <x>20</x>
+      <y>350</y>
+      <width>171</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -48,10 +58,10 @@
    <widget class="QPushButton" name="openButton">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>210</x>
       <y>350</y>
       <width>131</width>
-      <height>61</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -61,10 +71,10 @@
    <widget class="QPushButton" name="secondOpenButton">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>410</y>
-      <width>101</width>
-      <height>61</height>
+      <x>360</x>
+      <y>350</y>
+      <width>141</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="text">
@@ -81,8 +91,32 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="aSaveGame"/>
+    <addaction name="aLoadGame"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Настройки</string>
+    </property>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="aSaveGame">
+   <property name="text">
+    <string>Сохранить</string>
+   </property>
+  </action>
+  <action name="aLoadGame">
+   <property name="text">
+    <string>Загрузить</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
