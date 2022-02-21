@@ -26,8 +26,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 		print("Mouse pressed at", e.x(), e.y())
 		if (e.x() % 20 == 0) and (e.y() % 20 == 0):
 			self.points.append([e.x(), e.y()])
-		self.update() # вся перерисовка только через update,
-					  # который сам вызовет paintEvent.
+		self.update() 
 
 	'''_________Create playground_________'''   
 	def paintEvent(self, event):
@@ -47,7 +46,8 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 			p.drawLine(20,y,500,y)
 			y += 20
 		#painter.drawLine(10,200,510,200)
-		
+
+	'''_________Dot drawing_________'''	
 		pen = QPen(Qt.red, 5)
 		p.setPen(pen)
 		for x, y in self.points:
