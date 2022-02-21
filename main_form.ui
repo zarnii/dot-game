@@ -27,24 +27,6 @@ background-color:grey;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>100</y>
-      <width>211</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>26</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Привет Мир!</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
