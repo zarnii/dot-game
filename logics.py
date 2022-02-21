@@ -47,7 +47,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 			y += 20
 		#painter.drawLine(10,200,510,200)
 
-	'''_________Dot drawing_________'''	
+		'''_________Dot drawing_________'''	
 		pen = QPen(Qt.red, 5)
 		p.setPen(pen)
 		for x, y in self.points:
