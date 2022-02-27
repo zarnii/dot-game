@@ -13,7 +13,11 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 	def __init__(self):
 		super().__init__()
 		self.setupUi(self)
-		self.points = []
+
+		self.firstPlayerPoints = []
+		self.secondPlayerPoints = []
+		self.player = 1
+
 		self.moveTimer = QTimer(self)
 		self.openButton.clicked.connect(self.open_second_window)
 		self.secondOpenButton.clicked.connect(self.open_third_window)
@@ -25,7 +29,19 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 	def mousePressEvent(self, e):
 		print("Mouse pressed at", e.x(), e.y())
 		if (e.x() % 20 == 0) and (e.y() % 20 == 0):
-			self.points.append([e.x(), e.y()])
+			if self.player % 2 == 0:
+				self.secondPlayerPoints.append([e.x(), e.y()])
+				print('it was a second player')
+				print(self.player)
+				print(self.secondPlayerPoints)
+				self.player += 1
+				
+			elif self.player % 2 != 0:
+				self.firstPlayerPoints.append([e.x(), e.y()])
+				print('it was a first player')
+				print(self.player)
+				print(self.firstPlayerPoints)
+				self.player += 1
 		self.update() 
 
 	'''_________Create playground_________'''   
@@ -47,14 +63,27 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 			y += 20
 		#painter.drawLine(10,200,510,200)
 
-		'''_________Dot drawing_________'''	
+		'''_________Dot drawing_________'''
+		
+
+		p = QPainter()
+		p.begin(self)
+		pen = QPen(Qt.blue, 5)
+		p.setPen(pen)
+		for x, y in self.secondPlayerPoints:
+			p.drawPoint(x, y)
+		p.end()
+		
+		p = QPainter()
+		p.begin(self)
 		pen = QPen(Qt.red, 5)
 		p.setPen(pen)
-		for x, y in self.points:
+		for x, y in self.firstPlayerPoints:
 			p.drawPoint(x, y)
-
 		p.end()
 
+		for point in self.firstPlayerPoints:
+			pass
 
 	#функция открытия второго окна
 	def open_second_window(self):
