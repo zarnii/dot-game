@@ -22,7 +22,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 		self.openButton.clicked.connect(self.open_second_window)
 		self.secondOpenButton.clicked.connect(self.open_third_window)
 		self.aLoadGame.triggered.connect(self.open_second_window)
-		self.playButton.clicked.connect(self.play)
+		#self.playButton.clicked.connect(self.play)
 		self.stopButton.clicked.connect(self.stop)
 		#self.moveTimer.timeout.connect(self.onMoveTimerTimeout)
 
@@ -84,14 +84,15 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 
 		for point in self.firstPlayerPoints:
 			pass
+			
 
-	#функция открытия второго окна
+
 	def open_second_window(self):
 		self.twoWindow = TwoWindow()
 		self.twoWindow.show()
 		self.close()
 
-	#функция открытия третьего окна
+
 	def open_third_window(self):
 		self.thirdwindow = ThirdWindow()
 		self.thirdwindow.show()
