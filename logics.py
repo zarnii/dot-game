@@ -41,7 +41,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 
 
 	def mousePressEvent(self, e):
-		#_____Round cords______
+		'''_____Round cords______'''
 		x = round(e.x()/10)*10
 		y = round(e.y()/10)*10
 		print("Mouse pressed at", x, y)
