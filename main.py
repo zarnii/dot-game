@@ -1,6 +1,6 @@
 import sys
 from PyQt5 import QtWidgets
-from logics import MainWindow
+from logics import MenuWindow
 			
 
 if __name__ == '__main__':
@@ -8,7 +8,7 @@ if __name__ == '__main__':
 	app = QtWidgets.QApplication([sys.argv])
 
 	#Запуск формы главного окна
-	window = MainWindow()
+	window = MenuWindow()
 	window.show()
 	
 

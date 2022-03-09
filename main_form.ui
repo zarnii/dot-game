@@ -44,29 +44,20 @@ background-color:grey;
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="playButton">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
+      <widget class="QPushButton" name="mainWindowButton">
        <property name="minimumSize">
         <size>
          <width>30</width>
          <height>30</height>
         </size>
        </property>
-       <property name="baseSize">
-        <size>
-         <width>20</width>
-         <height>20</height>
-        </size>
-       </property>
        <property name="text">
-        <string>Play</string>
+        <string>Главное меню</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="stopButton">
+      <widget class="QPushButton" name="closeButton">
        <property name="minimumSize">
         <size>
          <width>30</width>
@@ -74,7 +65,7 @@ background-color:grey;
         </size>
        </property>
        <property name="text">
-        <string>Stop</string>
+        <string>Выйти</string>
        </property>
       </widget>
      </item>
@@ -92,41 +83,20 @@ background-color:grey;
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="closeButton">
+      <widget class="QLabel" name="Player_turn">
        <property name="minimumSize">
         <size>
-         <width>30</width>
-         <height>30</height>
+         <width>100</width>
+         <height>10</height>
         </size>
        </property>
-       <property name="text">
-        <string>close</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="openButton">
-       <property name="minimumSize">
-        <size>
-         <width>30</width>
-         <height>30</height>
-        </size>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
-        <string>open</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="secondOpenButton">
-       <property name="minimumSize">
-        <size>
-         <width>30</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>open</string>
+        <string>Ходит игрок 1</string>
        </property>
       </widget>
      </item>
@@ -178,8 +148,8 @@ background-color:grey;
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>265</x>
-     <y>341</y>
+     <x>97</x>
+     <y>44</y>
     </hint>
     <hint type="destinationlabel">
      <x>257</x>

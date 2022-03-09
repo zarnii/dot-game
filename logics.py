@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import *
 import main_form
 import second_window
 import third_window
+import menu
 
 
 class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
@@ -18,30 +19,52 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 		self.secondPlayerPoints = []
 		self.player = 1
 
-		self.moveTimer = QTimer(self)
-		self.openButton.clicked.connect(self.open_second_window)
-		self.secondOpenButton.clicked.connect(self.open_third_window)
-		self.aLoadGame.triggered.connect(self.open_second_window)
+		self.mainWindowButton.clicked.connect(self.openMenuWindow)
+		#self.moveTimer = QTimer(self)
+		#self.openButton.clicked.connect(self.open_second_window)
+		#self.secondOpenButton.clicked.connect(self.open_third_window)
+		#self.aLoadGame.triggered.connect(self.open_second_window)
 		#self.playButton.clicked.connect(self.play)
-		self.stopButton.clicked.connect(self.stop)
+		#self.stopButton.clicked.connect(self.stop)
 		#self.moveTimer.timeout.connect(self.onMoveTimerTimeout)
 
+	def openMenuWindow(self):
+		self.menuWindow = MenuWindow()
+		self.menuWindow.show()
+		self.close()
+
+	def playerTurn(self):
+		if self.player % 2 == 0:
+			self.Player_turn.setText('Ходит игрок 2')
+		elif self.player % 2 != 0:
+			self.Player_turn.setText('Ходит игрок 1')
+
+
 	def mousePressEvent(self, e):
-		print("Mouse pressed at", e.x(), e.y())
-		if (e.x() % 20 == 0) and (e.y() % 20 == 0):
+		#_____Round cords______
+		x = round(e.x()/10)*10
+		y = round(e.y()/10)*10
+		print("Mouse pressed at", x, y)
+
+		print("Mouse pressed at (round)", )
+		if (x % 20 == 0) and (y % 20 == 0):
 			if self.player % 2 == 0:
-				self.secondPlayerPoints.append([e.x(), e.y()])
+				self.player += 1
+				self.Player_turn.setText('Ходит игрок 2')
+				self.secondPlayerPoints.append([x, y])
 				print('it was a second player')
 				print(self.player)
 				print(self.secondPlayerPoints)
-				self.player += 1
+				self.playerTurn()
 				
 			elif self.player % 2 != 0:
-				self.firstPlayerPoints.append([e.x(), e.y()])
+				self.player += 1
+				self.firstPlayerPoints.append([x, y])
 				print('it was a first player')
 				print(self.player)
 				print(self.firstPlayerPoints)
-				self.player += 1
+				self.playerTurn()
+
 		self.update() 
 
 	'''_________Create playground_________'''   
@@ -53,7 +76,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 
 		
 		x = 20
-		while x <= 520:
+		while x < 520:
 			p.drawLine(x,100,x,500)
 			x += 20
 
@@ -86,7 +109,6 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 			pass
 			
 
-
 	def open_second_window(self):
 		self.twoWindow = TwoWindow()
 		self.twoWindow.show()
@@ -109,6 +131,18 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 					geom = self.label.geometry()
 					self.label.setGeometry(geom.x(), (geom.y()+10) % self.centralwidget.height(), geom.width(), geom.height())'''
 
+class MenuWindow(QtWidgets.QMainWindow, menu.Ui_MainWindow):
+	"""docstring for MenuWindow"""
+	def __init__(self):
+		super().__init__()
+		self.setupUi(self)
+		self.playButton.clicked.connect(self.openMainWindow)
+		self.closeButton.clicked.connect(self.close)
+	
+	def openMainWindow(self):
+		self.mainWindow = MainWindow()
+		self.mainWindow.show()
+		self.close()
 
 #Создание класса второго окна
 class TwoWindow(QtWidgets.QMainWindow, second_window.Ui_MainWindow):
@@ -122,4 +156,5 @@ class ThirdWindow(QtWidgets.QMainWindow, third_window.Ui_MainWindow):
 	def __init__(self):
 		super().__init__()
 		self.setupUi(self)
+
 			
