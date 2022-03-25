@@ -43,6 +43,8 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 	   Идет отслежование нажатий мышки на экран 
 	   и эти координаты добовляюся в списки	
 	'''
+			
+
 	def mousePressEvent(self, e):
 		'''_____Round cords______'''
 		x = round(e.x()/10)*10
@@ -52,114 +54,98 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 		x_y_in_firstPlayerPoints = False
 		x_y_in_secondPlayerPoints = False
 
-		if (x % 20 == 0) and (y % 20 == 0):
-			if self.player % 2 == 0:
-				self.player += 1
+		if x >= 20 and x <= 500 and y >= 100 and x <= 500:
+			if (x % 20 == 0) and (y % 20 == 0):
+				if self.player % 2 == 0:
+					self.player += 1
+	
+					#Идет проверка на наличе на этом месте точки 
+					for i in self.firstPlayerPoints:
+						if x == i[0] and y == i[1]:
+							x_y_in_firstPlayerPoints = True
+					for i in self.secondPlayerPoints:
+						if x == i[0] and y == i[1]:
+							x_y_in_secondPlayerPoints = True
+					print('нажал второй игрок')
+	
+					#Если на этом месте нет точки, то создать ее там 
+					if x_y_in_firstPlayerPoints == False and x_y_in_secondPlayerPoints == False:
+						self.secondPlayerPoints.append([x, y])
+						print('\nЭто место свободно!')
+						print('Координаты добавились')
+						#print(self.player)
+						print(self.secondPlayerPoints)
+						self.playerTurn()
+					else:
+						print('Это место уже занято!')
+	
+					
+				elif self.player % 2 != 0:
+					self.player += 1
+	
+					#Идет проверка на наличе на этом месте точки 
+					for i in self.firstPlayerPoints:
+						if x in i and y in i:
+							x_y_in_firstPlayerPoints = True
+					for i in self.secondPlayerPoints:
+						if x in i and y in i:
+							x_y_in_secondPlayerPoints = True
+					print('нажал первый игрок')
+	
+					#Если на этом месте нет точки, то создать ее там 
+					if x_y_in_firstPlayerPoints == False and x_y_in_secondPlayerPoints == False:
+						print('\nЭто место свободно!')
+						self.firstPlayerPoints.append([x, y])
+						print('Координаты добавились')
+						#print(self.player)
+						print(self.firstPlayerPoints)
+						self.playerTurn()
+					else:
+						print('Это место уже занято!')
 
-				#Идет проверка на наличе на этом месте точки 
-				for i in self.firstPlayerPoints:
-					if x in i and y in i:
-						x_y_in_firstPlayerPoints = True
-				for i in self.secondPlayerPoints:
-					if x in i and y in i:
-						x_y_in_secondPlayerPoints = True
-				print('нажал второй игрок')
-
-				#Если на этом месте нет точки, то создать ее там 
-				if x_y_in_firstPlayerPoints == False and x_y_in_secondPlayerPoints == False:
-					self.secondPlayerPoints.append([x, y])
-					print('\nЭто место свободно!')
-					print('Координаты добавились')
-					#print(self.player)
-					print(self.secondPlayerPoints)
-					self.playerTurn()
-				else:
-					print('Это место уже занято!')
-
-				
-			elif self.player % 2 != 0:
-				self.player += 1
-
-				#Идет проверка на наличе на этом месте точки 
-				for i in self.firstPlayerPoints:
-					if x in i and y in i:
-						x_y_in_firstPlayerPoints = True
-				for i in self.secondPlayerPoints:
-					if x in i and y in i:
-						x_y_in_secondPlayerPoints = True
-				print('нажал первый игрок')
-
-				#Если на этом месте нет точки, то создать ее там 
-				if x_y_in_firstPlayerPoints == False and x_y_in_secondPlayerPoints == False:
-					print('\nЭто место свободно!')
-					self.firstPlayerPoints.append([x, y])
-					print('Координаты добавились')
-					#print(self.player)
-					print(self.firstPlayerPoints)
-					self.playerTurn()
-				else:
-					print('Это место уже занято!')
 		self.update() 
+		
+
+	def paintEvent(self, e):
+		qp = QPainter()
+		qp.begin(self)
+		self.drawPlayGround(qp)
+		self.drawDot(qp)
+		#self.dotConnect(qp)
+		qp.end()
+
+	def drawDot(self, qp):
+		pen = QPen(Qt.blue, 5)
+		qp.setPen(pen)
+		for x, y in self.secondPlayerPoints:
+			qp.drawPoint(x, y)
+
+		pen = QPen(Qt.red, 5)
+		qp.setPen(pen)	
+		for x, y in self.firstPlayerPoints:
+			qp.drawPoint(x, y)
 
 	'''_________Create playground_________'''   
-	def paintEvent(self, event):
-		p = QPainter()
-		p.begin(self)
-		pen = QPen(Qt.black, 1)
-		p.setPen(pen)
-
-		
+	def drawPlayGround(self, qp):
 		x = 20
 		while x < 520:
-			p.drawLine(x,100,x,500)
+			qp.drawLine(x,100,x,500)
 			x += 20
 
 		y = 100
 		while y < 520:
-			p.drawLine(20,y,500,y)
+			qp.drawLine(20,y,500,y)
 			y += 20
 		#painter.drawLine(10,200,510,200)
 
-		'''_________Dot drawing_________'''
-		
-
-		p = QPainter()
-		p.begin(self)
-		pen = QPen(Qt.blue, 5)
-		p.setPen(pen)
-		for x, y in self.secondPlayerPoints:
-			p.drawPoint(x, y)
-		p.end()
-		
-		p = QPainter()
-		p.begin(self)
+	#Работает ОЧЕНЬ КРИВО!
+	'''def dotConnect(self, qp):
 		pen = QPen(Qt.red, 5)
-		p.setPen(pen)
-		for x, y in self.firstPlayerPoints:
-			p.drawPoint(x, y)
-		p.end()
-
-	'''def keyPressEvent(self, e):
-					if e.key() == Qt.Key_A:
-						print('Left')
-					elif e.key() == Qt.Key_D:
-						print('Right')
-					elif e.key() == Qt.Key_W:
-						print('Up')
-					elif e.key() == Qt.Key_S:
-						print('Down')
-			'''
-
-	def play(self):
-		self.moveTimer.start(100)
-
-	def stop(self):
-		self.moveTimer.stop()
-
-	'''def onMoveTimerTimeout(self):
-					#self.label.setGeometry(100,100,100,100)
-					geom = self.label.geometry()
-					self.label.setGeometry(geom.x(), (geom.y()+10) % self.centralwidget.height(), geom.width(), geom.height())'''
+		qp.setPen(pen)
+		if len(self.firstPlayerPoints) > 2:
+			i = self.firstPlayerPoints[0]
+			j = self.firstPlayerPoints[1]
+			qp.drawLine(i[0],i[1],j[0],j[1])'''
 
 #Главное меню всего приложения
 class MenuWindow(QtWidgets.QMainWindow, menu.Ui_MainWindow):
@@ -173,7 +159,4 @@ class MenuWindow(QtWidgets.QMainWindow, menu.Ui_MainWindow):
 	def openMainWindow(self):
 		self.mainWindow = MainWindow()
 		self.mainWindow.show()
-		self.close()
-
-
-			
+		self.close()			
