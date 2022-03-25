@@ -46,7 +46,6 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 			
 
 	def mousePressEvent(self, e):
-		'''_____Round cords______'''
 		x = round(e.x()/10)*10
 		y = round(e.y()/10)*10
 		print("Mouse pressed at", x, y)
@@ -124,8 +123,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 		qp.setPen(pen)	
 		for x, y in self.firstPlayerPoints:
 			qp.drawPoint(x, y)
-
-	'''_________Create playground_________'''   
+ 
 	def drawPlayGround(self, qp):
 		x = 20
 		while x < 520:
