@@ -39,7 +39,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 		elif self.player % 2 != 0:
 			self.Player_turn.setText('Ходит игрок 1')
 
-	'''Здесь полная жопа, надо потом сделать все по красоте
+	'''
 	   Идет отслежование нажатий мышки на экран 
 	   и эти координаты добовляюся в списки	
 	'''
