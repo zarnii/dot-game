@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import *
 
 import main_form
 import menu
+import time
 
 
 class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
