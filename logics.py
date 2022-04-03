@@ -76,7 +76,10 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
                         print('Координаты добавились')
                         # print(self.player)
                         print(self.secondPlayerPoints)
+<<<<<<< HEAD
                         connectedList = self.findConnectList(self.secondPlayerPoints,[x,y])
+=======
+>>>>>>> e6ad5e2be9e1b65a28bb14729a62f85f5e914ce3
                         self.playerTurn()
                     else:
                         print('Это место уже занято!')
@@ -101,7 +104,10 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
                         print('Координаты добавились')
                         # print(self.player)
                         print(self.firstPlayerPoints)
+<<<<<<< HEAD
                         connectedList = self.findConnectList(self.firstPlayerPoints, [x, y])
+=======
+>>>>>>> e6ad5e2be9e1b65a28bb14729a62f85f5e914ce3
                         self.playerTurn()
                     else:
                         print('Это место уже занято!')
@@ -139,6 +145,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
             y += 20
 
     # painter.drawLine(10,200,510,200)
+<<<<<<< HEAD
     def findConnectList(self, dotList, startPoint):
         usedPoints = []
         q = []
@@ -184,6 +191,18 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
                         q.append([dt,currentPoint])
                         fromList.append([dt,currentPoint])
         return resultList
+=======
+    def findConnectList(self, dotList, currentPoint, usedPoints, resList, startPoint):
+        for dt in dotList:
+            if ((dt.x + 20 == currentPoint.x) and (dt.y == currentPoint.y)) or (
+                    (dt.x - 20 == currentPoint.x) and (dt.y == currentPoint.y)):
+                if dt in usedPoints:
+                    if dt == startPoint:
+                        return True
+                    else:
+                        return False
+
+>>>>>>> e6ad5e2be9e1b65a28bb14729a62f85f5e914ce3
 
     # Работает ОЧЕНЬ КРИВО!
     '''def dotConnect(self, qp):
