@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import *
 
 import main_form
 import menu
+from test import arr
 
 
 class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
@@ -16,6 +17,9 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 
         self.firstPlayerPoints = []
         self.secondPlayerPoints = []
+        self.firstConnectedList = []
+        self.secondConnectedList = []
+
         self.player = 1
 
         self.mainWindowButton.clicked.connect(lambda: self.openMenuWindow())
@@ -75,7 +79,9 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
                         print('Координаты добавились')
                         # print(self.player)
                         print(self.secondPlayerPoints)
-                        connectedList = self.findConnectList(self.secondPlayerPoints,[x,y])
+                        tempList = self.findConnectList(self.secondPlayerPoints,[x,y])
+                        for pnt in tempList:
+                            self.secondConnectedList.append(pnt)
                         self.playerTurn()
                     else:
                         print('Это место уже занято!')
@@ -100,8 +106,11 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
                         print('Координаты добавились')
                         # print(self.player)
                         print(self.firstPlayerPoints)
-                        connectedList = self.findConnectList(self.firstPlayerPoints, [x, y])
+                        tempList = self.findConnectList(self.firstPlayerPoints, [x, y])
+                        for pnt in tempList:
+                            self.firstConnectedList.append(pnt)
                         self.playerTurn()
+                        #print(self.connectedList)
                     else:
                         print('Это место уже занято!')
 
@@ -112,8 +121,40 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
         qp.begin(self)
         self.drawPlayGround(qp)
         self.drawDot(qp)
-        # self.dotConnect(qp)
+        self.dotConnect(qp,)
         qp.end()
+
+    def dotConnect(self, qp):
+        if self.firstConnectedList != []:
+            pen = QPen(Qt.red, 2)
+            qp.setPen(pen)
+            for i in self.firstConnectedList:
+                first_dot = i[0]
+                x_first_dot = first_dot[0]
+                y_first_dot = first_dot[1]
+
+                second_dot = i[1]
+                x_second_dot = second_dot[0]
+                y_second_dot = second_dot[1]
+
+                qp.drawLine(x_first_dot, y_first_dot, x_second_dot, y_second_dot)
+
+        if self.secondConnectedList != []:
+            pen = QPen(Qt.blue, 2)
+            qp.setPen(pen)
+            for i in self.secondConnectedList:
+                first_dot = i[0]
+                x_first_dot = first_dot[0]
+                y_first_dot = first_dot[1]
+
+                second_dot = i[1]
+                x_second_dot = second_dot[0]
+                y_second_dot = second_dot[1]
+
+                qp.drawLine(x_first_dot, y_first_dot, x_second_dot, y_second_dot)
+
+
+
 
     def drawDot(self, qp):
         pen = QPen(Qt.blue, 5)
@@ -184,14 +225,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
                         fromList.append([dt,currentPoint])
         return resultList
 
-    # Работает ОЧЕНЬ КРИВО!
-    '''def dotConnect(self, qp):
-		pen = QPen(Qt.red, 5)
-		qp.setPen(pen)
-		if len(self.firstPlayerPoints) > 2:
-			i = self.firstPlayerPoints[0]
-			j = self.firstPlayerPoints[1]
-			qp.drawLine(i[0],i[1],j[0],j[1])'''
+
 
 
 # Главное меню всего приложения
