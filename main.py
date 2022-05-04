@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import QtWidgets
 from logics import MenuWindow
+
 			
 
 if __name__ == '__main__':
