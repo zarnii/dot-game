@@ -46,8 +46,16 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 	def playerTurn(self):
 		if self.player % 2 == 0:
 			self.Player_turn.setText('Ходит игрок 2')
+			self.secondScoreLabel.setText(f'2: {self.secondPlayerScore}')
 		elif self.player % 2 != 0:
 			self.Player_turn.setText('Ходит игрок 1')
+			self.firstScoreLabel.setText(f'1: {self.firstPlayerScore}')
+			
+	'''def getScore(self):
+					if self.player % 2 == 0:
+						self.secondScoreLabel.setText(f'2: {self.secondPlayerScore}')
+					elif self.player % 2 != 0:
+						self.firstScoreLabel.setText(f'1: {self.firstPlayerScore}')'''
 
 	'''
 	   Идет отслежование нажатий мышки на экран 
@@ -55,6 +63,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 	'''
 
 	def mousePressEvent(self, e):
+		#self.getScore()
 		x = round(e.x() / 10) * 10
 		y = round(e.y() / 10) * 10
 		print("Mouse pressed at", x, y)
@@ -86,7 +95,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 						tempList = self.findConnectList(self.secondPlayerPoints,[x,y])
 						for pnt in tempList:
 							self.secondConnectedList.append(pnt)
-						self.playerTurn()
+						#self.playerTurn()
 						print(self.secondConnectedList)
 
 						if len(self.secondPlayerPoints) != 0:
@@ -118,7 +127,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 						tempList = self.findConnectList(self.firstPlayerPoints, [x, y])
 						for pnt in tempList:
 							self.firstConnectedList.append(pnt)
-						self.playerTurn()
+						#self.playerTurn()
 						print(self.firstConnectedList)
 						#print(self.connectedList)
 						if len(self.firstPlayerPoints) != 0:
@@ -126,7 +135,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 						print(f'{self.firstPlayerScore} - очки первого игрока')
 					else:
 						print('Это место уже занято!')
-
+		self.playerTurn()
 		self.update()
 
 	def paintEvent(self, e):
