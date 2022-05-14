@@ -46,10 +46,10 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 	def playerTurn(self):
 		if self.player % 2 == 0:
 			self.Player_turn.setText('Ходит игрок 2')
-			self.secondScoreLabel.setText(f'2: {self.secondPlayerScore}')
 		elif self.player % 2 != 0:
 			self.Player_turn.setText('Ходит игрок 1')
-			self.firstScoreLabel.setText(f'1: {self.firstPlayerScore}')
+		self.secondScoreLabel.setText(f'2: {self.secondPlayerScore}')
+		self.firstScoreLabel.setText(f'1: {self.firstPlayerScore}')
 			
 	'''def getScore(self):
 					if self.player % 2 == 0:
@@ -98,10 +98,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 						#self.playerTurn()
 						print(self.secondConnectedList)
 
-						if len(self.secondPlayerPoints) != 0:
-							self.secondPlayerScore = len(self.secondConnectedList)
 
-						print(f'{self.secondPlayerScore} - очки второго игрока')
 					else:
 						print('Это место уже занято!')
 
@@ -130,13 +127,19 @@ class MainWindow(QtWidgets.QMainWindow, main_form.Ui_MainWindow):
 						#self.playerTurn()
 						print(self.firstConnectedList)
 						#print(self.connectedList)
-						if len(self.firstPlayerPoints) != 0:
-							self.firstPlayerScore = len(self.firstConnectedList)
-						print(f'{self.firstPlayerScore} - очки первого игрока')
+
 					else:
 						print('Это место уже занято!')
+		if len(self.firstConnectedList) != 0:
+			self.firstPlayerScore = len(self.firstConnectedList)
+		print(f'{self.firstPlayerScore} - очки первого игрока')
+		if len(self.secondConnectedList) != 0:
+			self.secondPlayerScore = len(self.secondConnectedList)
+		print(f'{self.secondPlayerScore} - очки второго игрока')
 		self.playerTurn()
 		self.update()
+
+
 
 	def paintEvent(self, e):
 		qp = QPainter()
